@@ -1,24 +1,10 @@
-/*
-
-This CSS file will be included with your plugin, and
-available in the app when your plugin is enabled.
-
-If your plugin does not need CSS, delete this file.
-
-*/
-
-.write-good-highlight {
+.write-good-line-highlight {
   background-color: rgba(255, 165, 0, 0.2); /* Light orange background */
   position: relative;
 }
 
-.write-good-highlight::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-bottom: 2px dashed orange; /* Orange squiggle line */
+.write-good-highlight {
+  text-decoration: underline wavy orange;
 }
 
 .write-good-suggestion {

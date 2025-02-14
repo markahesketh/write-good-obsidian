@@ -8,10 +8,10 @@ class WriteGoodWidget extends WidgetType {
   }
 
   toDOM() {
-    const div = document.createElement('div');
-    div.className = 'write-good-suggestion';
-    div.textContent = this.message;
-    return div;
+    const span = document.createElement('span');
+    span.className = 'write-good-suggestion';
+    span.textContent = this.message;
+    return span;
   }
 }
 
@@ -42,6 +42,13 @@ const writeGoodPlugin = ViewPlugin.fromClass(
       for (const suggestion of suggestions) {
         const from = suggestion.index;
         const to = suggestion.index + suggestion.offset;
+        const line = doc.lineAt(from);
+
+        const lineMark = Decoration.line({
+          class: 'write-good-line-highlight',
+        });
+        builder.push(lineMark.range(line.from));
+
         const mark = Decoration.mark({
           class: 'write-good-highlight',
         });
@@ -51,7 +58,7 @@ const writeGoodPlugin = ViewPlugin.fromClass(
           widget: new WriteGoodWidget(suggestion.reason),
           side: 1,
         });
-        builder.push(widget.range(doc.lineAt(from).to));
+        builder.push(widget.range(line.to));
       }
 
       return Decoration.set(builder);
