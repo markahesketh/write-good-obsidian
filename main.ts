@@ -1,4 +1,4 @@
-import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
+import { Plugin } from 'obsidian';
 import writeGood from 'write-good';
 import { Decoration, ViewPlugin, WidgetType } from '@codemirror/view';
 
