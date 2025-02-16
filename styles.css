@@ -1,14 +1,12 @@
-.write-good-line-highlight {
-  background-color: rgba(255, 165, 0, 0.2); /* Light orange background */
-  position: relative;
+.write-good-line {
+  background-color: rgba(255, 165, 0, 0.2);
 }
 
-.write-good-highlight {
+.write-good-mark {
   text-decoration: underline wavy orange;
 }
 
 .write-good-suggestion {
   color: orange;
-  font-weight: bold;
-  margin-left: 8px;
+  margin-left: 1em;
 }
