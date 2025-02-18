@@ -79,7 +79,6 @@ const writeGoodPlugin = ViewPlugin.fromClass(
 export default class WriteGoodPlugin extends Plugin {
     async onload() {
         this.registerEditorExtension(writeGoodPlugin);
-        console.log('WriteGoodPlugin loaded');
     }
 
     onunload() { }
