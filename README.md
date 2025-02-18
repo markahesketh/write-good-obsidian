@@ -50,4 +50,4 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/markah
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](LICENSE).
+This plugin is available as open source under the terms of the [MIT License](LICENSE).
