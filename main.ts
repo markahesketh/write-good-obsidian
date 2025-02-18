@@ -77,9 +77,16 @@ const writeGoodPlugin = ViewPlugin.fromClass(
 );
 
 export default class WriteGoodPlugin extends Plugin {
+    private editorExtension: any;
+
     async onload() {
-        this.registerEditorExtension(writeGoodPlugin);
+        this.editorExtension = this.registerEditorExtension(writeGoodPlugin);
     }
 
-    onunload() { }
+    onunload() {
+        if (this.editorExtension) {
+            this.app.workspace.updateOptions();
+            this.editorExtension.unload();
+        }
+    }
 }
