@@ -26,10 +26,11 @@ An Obsidian plugin that integrates [write good](https://github.com/btford/write-
 
 ### Manual Installation
 
-1. Download the latest release from the [Releases page](https://github.com/markahesketh/write-good-obsidian/releases)
-2. Extract the files into your Obsidian vault's `.obsidian/plugins/write-good-obsidian/` directory
-3. Reload Obsidian
-4. Enable the plugin in your Community Plugins settings
+1. Navigate to the latest release from the [Releases page](https://github.com/markahesketh/write-good-obsidian/releases)
+2. Download `main.js`, `manifest.json`, and `style.css` from the latest release
+3. Move these files into your Obsidian vault's `.obsidian/plugins/write-good/` directory
+4. Reload Obsidian
+5. Enable the plugin in your Community Plugins settings
 
 ## Usage
 
