@@ -1,7 +1,7 @@
 {
 	"id": "write-good",
 	"name": "Write Good",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"minAppVersion": "0.15.0",
 	"description": "Linter for English prose and improving writing style",
 	"author": "Mark Hesketh",
