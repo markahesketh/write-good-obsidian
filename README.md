@@ -1,4 +1,4 @@
-# Write Good for Obsidian
+# Write Good
 
 An Obsidian plugin that integrates [write good](https://github.com/btford/write-good), a linter for English prose and improving writing style. 
 
