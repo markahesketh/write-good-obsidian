@@ -82,11 +82,4 @@ export default class WriteGoodPlugin extends Plugin {
     async onload() {
         this.editorExtension = this.registerEditorExtension(writeGoodPlugin);
     }
-
-    onunload() {
-        if (this.editorExtension) {
-            this.app.workspace.updateOptions();
-            this.editorExtension.unload();
-        }
-    }
 }
