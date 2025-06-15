@@ -22,12 +22,12 @@ const writeGoodPlugin = ViewPlugin.fromClass(
         decorations: any;
         view: any;
         plugin: WriteGoodPlugin;
-		checks: Record<string, boolean>;
+        checks: Record<string, boolean>;
 
         constructor(view: any) {
             this.view = view;
             this.plugin = view.state.facet(WriteGoodPluginFacet)[0];
-			this.checks = this.plugin?.settings?.checks || DEFAULT_SETTINGS.checks;
+            this.checks = this.plugin?.settings?.checks || DEFAULT_SETTINGS.checks;
             this.decorations = this.buildDecorations();
         }
 
