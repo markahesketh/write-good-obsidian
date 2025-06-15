@@ -8,11 +8,19 @@ An Obsidian plugin that integrates [write good](https://github.com/btford/write-
 
 - Highlights writing issues in your notes
 - Suggests improvements for:
-  - Passive voice
-  - Weasel words
-  - Unnecessary words
-  - Complex phrases
-  - And more...
+  - **Passive voice:** Highlights use of passive voice.
+  - **Lexical illusions:** Detects repeated words.
+  - **Sentence starts with "So":** Flags sentences that start with "So".
+  - **Sentence starts with "There is/are":** Flags sentences that start with "There is" or "There are".
+  - **Weasel words:** Detects words like "many", "various", "very".
+  - **Adverbs:** Highlights adverbs (words ending in -ly).
+  - **Wordy phrases:** Flags wordy phrases that can be simplified.
+  - **Clichés:** Detects cliches.
+  - **E-Prime:** Flags use of "to be" verbs (E-Prime style).
+
+## Settings
+
+- **Configurable checks:** Enable or disable individual write-good checks
 
 ## Installation
 

@@ -1,6 +1,7 @@
-import { Plugin } from 'obsidian';
+import { Plugin, PluginSettingTab, App, Setting } from 'obsidian';
 import writeGood from 'write-good';
 import { Decoration, ViewPlugin, WidgetType } from '@codemirror/view';
+import { Facet } from '@codemirror/state';
 
 class WriteGoodSuggestion extends WidgetType {
     constructor(readonly message: string) {
@@ -20,14 +21,18 @@ const writeGoodPlugin = ViewPlugin.fromClass(
         timeout: ReturnType<typeof setTimeout>;
         decorations: any;
         view: any;
+        plugin: WriteGoodPlugin;
+		checks: Record<string, boolean>;
 
         constructor(view: any) {
             this.view = view;
+            this.plugin = view.state.facet(WriteGoodPluginFacet)[0];
+			this.checks = this.plugin?.settings?.checks || DEFAULT_SETTINGS.checks;
             this.decorations = this.buildDecorations();
         }
 
         update(update: any) {
-            if (update.docChanged) {
+            if (update.docChanged || update.focusChanged) {
                 this.decorations = this.buildDecorations();
             }
         }
@@ -36,7 +41,7 @@ const writeGoodPlugin = ViewPlugin.fromClass(
             const builder = [];
             const doc = this.view.state.doc;
             const text = doc.toString();
-            const suggestions = writeGood(text);
+            const suggestions = writeGood(text, this.checks);
             const linesWithSuggestions = new Set();
 
             for (const suggestion of suggestions) {
@@ -76,10 +81,82 @@ const writeGoodPlugin = ViewPlugin.fromClass(
     }
 );
 
+// Facet to pass plugin instance to ViewPlugin
+const WriteGoodPluginFacet = Facet.define<WriteGoodPlugin, WriteGoodPlugin>();
+
+// List of write-good checks and their descriptions
+const WRITE_GOOD_CHECKS = [
+    { key: 'passive', label: 'Passive voice', description: 'Highlights use of passive voice.' },
+    { key: 'illusion', label: 'Lexical illusions', description: 'Detects lexical illusions (repeated words).' },
+    { key: 'so', label: 'Sentence starts with "So"', description: 'Flags sentences that start with "So".' },
+    { key: 'thereIs', label: 'Sentence starts with "There is/are"', description: 'Flags sentences that start with "There is" or "There are".' },
+    { key: 'weasel', label: 'Weasel words', description: 'Detects weasel words (e.g., "many", "various", "very").' },
+    { key: 'adverb', label: 'Adverbs', description: 'Highlights adverbs (words ending in -ly).' },
+    { key: 'tooWordy', label: 'Wordy phrases', description: 'Flags wordy phrases that can be simplified.' },
+    { key: 'cliches', label: 'Clichés', description: 'Detects cliches.' },
+    { key: 'eprime', label: 'E-Prime', description: 'Flags use of "to be" verbs (E-Prime style).' },
+];
+
+interface WriteGoodSettings {
+    checks: Record<string, boolean>;
+}
+
+const DEFAULT_SETTINGS: WriteGoodSettings = {
+    checks: {
+        passive: true,
+        illusion: true,
+        so: true,
+        thereIs: true,
+        weasel: true,
+        adverb: true,
+        tooWordy: true,
+        cliches: true,
+        eprime: false,
+    },
+};
+
+class WriteGoodSettingTab extends PluginSettingTab {
+    plugin: WriteGoodPlugin;
+    constructor(app: App, plugin: WriteGoodPlugin) {
+        super(app, plugin);
+        this.plugin = plugin;
+    }
+    display(): void {
+        const { containerEl } = this;
+        containerEl.empty();
+        containerEl.createEl('h2', { text: 'Checks' });
+        WRITE_GOOD_CHECKS.forEach((check) => {
+            new Setting(containerEl)
+                .setName(check.label)
+                .setDesc(check.description)
+                .addToggle((toggle) => {
+                    toggle.setValue(this.plugin.settings.checks[check.key]);
+                    toggle.onChange(async (value) => {
+                        this.plugin.settings.checks[check.key] = value;
+                        await this.plugin.saveSettings();
+                    });
+                });
+        });
+    }
+}
+
 export default class WriteGoodPlugin extends Plugin {
-    private editorExtension: any;
+    settings: WriteGoodSettings;
 
     async onload() {
-        this.editorExtension = this.registerEditorExtension(writeGoodPlugin);
+        await this.loadSettings();
+        this.addSettingTab(new WriteGoodSettingTab(this.app, this));
+        // Register the facet with the plugin instance
+        this.registerEditorExtension([
+            writeGoodPlugin,
+            WriteGoodPluginFacet.of(this)
+        ]);
+    }
+
+    async loadSettings() {
+        this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+    }
+    async saveSettings() {
+        await this.saveData(this.settings);
     }
 }
