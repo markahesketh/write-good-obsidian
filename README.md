@@ -17,11 +17,12 @@ An Obsidian plugin that integrates [write good](https://github.com/btford/write-
   - **Wordy phrases:** Flags wordy phrases that can be simplified
   - **Clichés:** Detects cliches
   - **E-Prime:** Flags use of "to be" verbs (E-Prime style)
-- Enable/disable functionality for individual files via the command palette or a custom hotkey
+- Enable or disable checking per note via the command palette or a custom hotkey
 
 ## Settings
 
-- **Configurable checks:** Enable or disable specific write-good checks (such as passive voice, adverbs, etc.)
+- **Enabled by default:** Enable or disable checking newly created or opened notes
+- **Configurable checks:** Enable or disable specific checks (such as passive voice, adverbs, etc.)
 
 ## Installation
 
@@ -45,19 +46,6 @@ An Obsidian plugin that integrates [write good](https://github.com/btford/write-
 
 1. Open any note in your vault
 2. Writing suggestions will automatically appear as you type
-
-## Per-File Toggle Checks Feature
-
-You can now enable or disable linting checks for individual files in Obsidian:
-
-- **Toggle via Hotkey:** Assign a custom hotkey in Obsidian’s hotkey settings to quickly toggle checks for the current file.
-- **Command Palette:** Use the command palette and search for "Toggle checks for current file" to enable or disable checks for the file you are editing.
-- **Persistence:** The plugin remembers your checks preference for each file, even after restarting Obsidian.
-- **Performance:** When checks are disabled for a file, all linter highlights and suggestions are hidden, and no linting is performed for that file, improving performance on large or special-purpose files.
-- **Settings Storage:** Per-file checks state is stored in the plugin’s settings file (`data.json`).
-- **Robustness:** If the settings file is corrupted or unreadable, the plugin defaults to enabling checks for all files and logs an error to the console.
-
-This feature is useful for disabling checks on kanban boards, brainstorming notes, or any file where linting is not desired.
 
 ## Development
 

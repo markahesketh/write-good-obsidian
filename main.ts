@@ -129,6 +129,7 @@ const WRITE_GOOD_CHECKS = [
 interface WriteGoodSettings {
     checks: Record<string, boolean>;
     fileChecksState: Record<string, boolean>;
+    enableChecksByDefault: boolean;
 }
 
 const DEFAULT_SETTINGS: WriteGoodSettings = {
@@ -144,6 +145,7 @@ const DEFAULT_SETTINGS: WriteGoodSettings = {
         eprime: false,
     },
     fileChecksState: {},
+    enableChecksByDefault: true,
 };
 
 class WriteGoodSettingTab extends PluginSettingTab {
@@ -155,6 +157,19 @@ class WriteGoodSettingTab extends PluginSettingTab {
     display(): void {
         const { containerEl } = this;
         containerEl.empty();
+
+        containerEl.createEl('h2', { text: 'General settings' });
+        new Setting(containerEl)
+            .setName('Enabled by default')
+            .setDesc('Check newly created or opened notes. Can be toggled on/off per note via the command palette or hotkey.')
+            .addToggle((toggle) => {
+                toggle.setValue(this.plugin.settings.enableChecksByDefault);
+                toggle.onChange(async (value) => {
+                    this.plugin.settings.enableChecksByDefault = value;
+                    await this.plugin.saveSettings();
+                });
+            });
+
         containerEl.createEl('h2', { text: 'Checks' });
         WRITE_GOOD_CHECKS.forEach((check) => {
             new Setting(containerEl)
@@ -249,7 +264,7 @@ export default class WriteGoodPlugin extends Plugin {
         if (fileId in this.settings.fileChecksState) {
             return this.settings.fileChecksState[fileId];
         }
-        return true;
+        return this.settings.enableChecksByDefault;
     }
 
     setChecksStateForFile(fileId: string, enabled: boolean) {
