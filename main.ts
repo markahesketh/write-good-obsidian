@@ -160,8 +160,8 @@ class WriteGoodSettingTab extends PluginSettingTab {
 
         containerEl.createEl('h2', { text: 'General settings' });
         new Setting(containerEl)
-            .setName('Enabled by default')
-            .setDesc('Check newly created or opened notes. Can be toggled on/off per note via the command palette or hotkey.')
+            .setName('Enable by default')
+            .setDesc('Automatically check new or opened notes. You can toggle checks per note using the command palette or a hotkey.')
             .addToggle((toggle) => {
                 toggle.setValue(this.plugin.settings.enableChecksByDefault);
                 toggle.onChange(async (value) => {
@@ -170,7 +170,7 @@ class WriteGoodSettingTab extends PluginSettingTab {
                 });
             });
 
-        containerEl.createEl('h2', { text: 'Checks' });
+        containerEl.createEl('h2', { text: 'Available checks' });
         WRITE_GOOD_CHECKS.forEach((check) => {
             new Setting(containerEl)
                 .setName(check.label)

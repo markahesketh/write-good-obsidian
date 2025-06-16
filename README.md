@@ -6,8 +6,8 @@ An Obsidian plugin that integrates [write good](https://github.com/btford/write-
 
 ## Features
 
-- Highlights writing issues in your notes
-- Suggests improvements for:
+- Identifies common writing issues in your notes
+- Offers suggestions to improve clarity and style, including:
   - **Passive voice:** Highlights use of passive voice
   - **Lexical illusions:** Detects repeated words
   - **Sentence starts with "So":** Flags sentences that start with "So"
@@ -17,12 +17,12 @@ An Obsidian plugin that integrates [write good](https://github.com/btford/write-
   - **Wordy phrases:** Flags wordy phrases that can be simplified
   - **Clichés:** Detects cliches
   - **E-Prime:** Flags use of "to be" verbs (E-Prime style)
-- Enable or disable checking per note via the command palette or a custom hotkey
+- Toggle checks per note via the command palette or a custom hotkey
 
 ## Settings
 
-- **Enabled by default:** Enable or disable checking newly created or opened notes
-- **Configurable checks:** Enable or disable specific checks (such as passive voice, adverbs, etc.)
+- **Enabled by default:** Automatically check newly created or opened notes
+- **Configurable checks:** Turn individual checks on or off (e.g., passive voice, adverbs, etc.)
 
 ## Installation
 
