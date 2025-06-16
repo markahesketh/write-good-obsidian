@@ -199,8 +199,8 @@ export default class WriteGoodPlugin extends Plugin {
         ]);
 
         this.addCommand({
-            id: 'toggle-checks-for-current-file',
-            name: 'Toggle checks for current file',
+            id: 'toggle-checks-for-current-note',
+            name: 'Toggle checks for current note',
             editorCheckCallback: (checking: boolean, editor: Editor, ctx: MarkdownView | MarkdownFileInfo): boolean | void => {
                 if (checking) return true; // Show command only when an editor is active
                 const file = this.app.workspace.getActiveFile();
